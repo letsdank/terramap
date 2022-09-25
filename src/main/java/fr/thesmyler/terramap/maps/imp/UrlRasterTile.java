@@ -37,9 +37,11 @@ public class UrlRasterTile implements IRasterTile {
 	public UrlRasterTile(String urlPattern, TilePosUnmutable pos) {
 		this.pos = pos;
 		this.url = urlPattern
-				.replace("{x}", "" + this.getPosition().getX())
-				.replace("{y}", "" + this.getPosition().getY())
-				.replace("{z}", "" + this.getPosition().getZoom());
+					.replace("{x}", "" + this.getPosition().getX())
+					.replace("{y}", "" + this.getPosition().getY())
+					.replace("{z}", "" + this.getPosition().getZoom())
+					.replace("{lat}", String.format("%s", getPosition().getLat()))
+					.replace("{lon}", String.format("%s", getPosition().getLon()));
 	}
 	
 	public UrlRasterTile(String urlPattern, int zoom, int x, int y) {

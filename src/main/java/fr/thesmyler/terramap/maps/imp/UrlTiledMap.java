@@ -43,7 +43,7 @@ public class UrlTiledMap extends CachingRasterTiledMap<UrlRasterTile> {
 	private static final ITextComponent FALLBACK_COPYRIGHT = ITextComponent.Serializer.jsonToComponent("{\"text\":\"The text component for this copyright notice was malformatted!\",\"color\":\"dark_red\"}");
 
 	public UrlTiledMap(
-			String[] urlPatterns,
+			String[] urlPatterns, // Placeholder
 			int minZoom,
 			int maxZoom,
 			String id,
@@ -66,8 +66,12 @@ public class UrlTiledMap extends CachingRasterTiledMap<UrlRasterTile> {
 		Preconditions.checkArgument(version >= 0, "Map version number must be positive");
 		Preconditions.checkArgument(comment != null, "A valid map comment needs to be provided");
 		Preconditions.checkArgument(maxConcurrentDownloads > 0 ,"Max concurent downloads must be at least 1");
-		for(String pattern: urlPatterns) {
-			String url = pattern.replace("{z}", "0").replace("{x}", "0").replace("{y}", "0");
+		for(String pattern: urlPatterns) { // Placeholders
+			String url = pattern.replace("{z}", "0")
+					.replace("{x}", "0")
+					.replace("{y}", "0")
+					.replace("{lat}", "0")
+					.replace("{lon}", "0");
 			try {
 				@SuppressWarnings("unused")
 				URL u = new URL(url);

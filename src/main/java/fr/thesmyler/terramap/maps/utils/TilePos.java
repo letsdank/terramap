@@ -12,6 +12,8 @@ public abstract class TilePos {
 	protected int zoom;
 	protected int xPosition;
 	protected int yPosition;
+	protected double lat;
+	protected double lon;
 	
 	/**
 	 * Default TilePos constructor.
@@ -31,6 +33,20 @@ public abstract class TilePos {
 		this.zoom = zoom;
 		this.xPosition = x;
 		this.yPosition = y;
+
+		lat = tileToLat(y, zoom);
+		lon = tileToLong(x, zoom);
+	}
+
+	private static double tileToLong(int x, int z) {
+		double dx = x + 0.5;
+		return dx / Math.pow(2, z) * 360 - 180;
+	}
+
+	private static double tileToLat(int y, int z) {
+		double dy = y + 0.5;
+		double n = Math.PI - 2 * Math.PI * dy / Math.pow(2, z);
+		return 180 / Math.PI * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n)));
 	}
 	
 	/**
@@ -69,7 +85,15 @@ public abstract class TilePos {
 	public int getY() {
 		return this.yPosition;
 	}
-	
+
+	public double getLat() {
+		return lat;
+	}
+
+	public double getLon() {
+		return lon;
+	}
+
 	/**
 	 * @return a mutable deep copy of this tile position
 	 * @see #getUnmutableCopy()
